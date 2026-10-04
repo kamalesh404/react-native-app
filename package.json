@@ -1,0 +1,31 @@
+{
+  "name": "react-native-app",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "expo-router/entry",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "lint": "eslint .",
+    "test": "jest"
+  },
+  "dependencies": {
+    "expo": "^52.0.35",
+    "react": "18.3.1",
+    "react-native": "0.74.5",
+    "expo-router": "^3.0.21",
+    "expo-status-bar": "~1.12.1",
+    "@react-native-async-storage/async-storage": "1.24.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "metro-react-native-babel-bridge": "^0.77.4",
+    "@react-native/metro-config": "^0.74.3",
+    "@types/react": "^18.3.18",
+    "react-native-screens": "^4.1.0",
+    "expo-font": "^12.0.6"
+  },
+  "private": true
+}
