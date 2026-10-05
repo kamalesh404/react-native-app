@@ -1,2 +1,0 @@
-﻿
-// android back button fix

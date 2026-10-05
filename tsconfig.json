@@ -1,20 +1,22 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM"],
     "module": "ESNext",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "moduleResolution": "bundler",
+    "resolveJsonModule": true,
     "isolatedModules": true,
-    "noImplicitAny": false,
-    "allowJs": true,
+    "noEmit": true,
+    "jsx": "react-native",
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["app/*"]
+      "@/*": ["src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["App.tsx", "index.js", "src/**/*", "app/**/*"],
+  "exclude": ["node_modules", "android", "ios"]
 }

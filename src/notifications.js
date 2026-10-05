@@ -1,2 +1,0 @@
-﻿
-// push notification setup
