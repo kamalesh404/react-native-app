@@ -15,7 +15,7 @@ env:
 jobs:
   lint-typecheck:
     name: Lint & Typecheck
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -38,7 +38,7 @@ jobs:
 
   build-apk:
     name: Build release APK (Gradle, no EAS token needed)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: lint-typecheck
     steps:
       - name: Checkout
@@ -57,8 +57,13 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Setup Android SDK (preinstalled on runner)
+        run: |
+          export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          sdkmanager --version
+          yes | sdkmanager --licenses > /dev/null || true
+          sdkmanager --install "platform-tools" "platforms;android-35" "build-tools;35.0.0" || true
 
       - name: Install dependencies
         run: npm ci
