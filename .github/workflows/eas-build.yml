@@ -12,9 +12,6 @@ jobs:
   eas-build:
     name: EAS Android build
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: react-native-app
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,7 +21,7 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: react-native-app/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Setup Expo
         uses: expo/expo-github-action@v8
@@ -34,7 +31,7 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Install dependencies
-        run: npm ci || npm install
+        run: npm ci
 
       - name: EAS build (Android APK, non-interactive)
         run: eas build --platform android --profile ${{ inputs.profile || 'preview' }} --non-interactive --no-wait
