@@ -8,6 +8,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+env:
+  CI: true
+  EXPO_NO_TELEMETRY: 1
+
 jobs:
   lint-typecheck:
     name: Lint & Typecheck
@@ -27,10 +31,13 @@ jobs:
           cache-dependency-path: react-native-app/package-lock.json
 
       - name: Install dependencies
-        run: npm ci || npm install
+        run: npm ci
 
       - name: Typecheck
         run: npx tsc --noEmit
+
+      - name: Verify Expo config
+        run: npx expo config --type public > /dev/null
 
   build-apk:
     name: Build release APK (Gradle, no EAS token needed)
@@ -60,16 +67,18 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Install dependencies
-        run: npm ci || npm install
+        run: npm ci
 
       - name: Expo prebuild (generate android/ folder)
-        run: npx expo prebuild --platform android --non-interactive --no-install
+        run: npx expo prebuild --platform android --non-interactive --no-install --clean
 
       - name: Make gradlew executable
         run: chmod +x android/gradlew
 
       - name: Build release APK
-        run: cd android && ./gradlew assembleRelease --no-daemon
+        env:
+          GRADLE_OPTS: -Xmx3g -Dorg.gradle.daemon=false
+        run: cd android && ./gradlew assembleRelease --no-daemon --max-workers=2 --stacktrace
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
