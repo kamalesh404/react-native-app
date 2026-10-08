@@ -32,7 +32,9 @@
       "bundler": "metro",
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [],
+    "plugins": [
+      "expo-asset"
+    ],
     "extra": {
       "eas": {
         "projectId": "00000000-0000-0000-0000-000000000000"
